@@ -1,0 +1,13 @@
+{
+    "source": {
+        "token": "",
+        "channel_id": ""
+    },
+    "params":{
+        "message_file": "test-message.json",
+        "upload": {
+            "filename": "testfile",
+            "file": "test-message.json"
+        }
+    }
+}

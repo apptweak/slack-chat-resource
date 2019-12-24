@@ -5,7 +5,7 @@ This repository provides Concourse resource types to read, act on, and reply to 
 There are two resource types:
 
 - `slack-read-resource`: For reading messages.
-- `slack-post-resource`: For posting messages.
+- `slack-post-resource`: For posting messages, uploading files.
 
 There are two resource types because a system does not want to respond to messages that it posts itself. Concourse assumes that an output of a resource is also a valid input. Therefore, separate resources are used for reading and posting. Since using a single resource has no benefits over separate resources, reading and posting are split into two resource types.
 
@@ -155,6 +155,8 @@ Parameters:
 
 - `message`: *Optional*. The message to send described in YAML.
 - `message_file`: *Optional*. The file containing the message to send described in JSON.
+- `update_ts`: *Optional*. Instead of pusting new message update this message. (support interpolation see below)
+- `upload` : *Optional* Upload a file and attached it to the message. (see [files.upload](https://api.slack.com/methods/files.upload))
 
 Either `message` or `message_file` must be present. If both are present, `message_file` takes precedence and `message` is ignored.
 
@@ -164,7 +166,7 @@ When using `message`, some message parameters support string interpolation to in
 
 | Pattern | Substituted By |
 |---------|----------------|
-| `{{filename}}` | Contents of file `filename` |
+| `{{filename}}` | Contents of file `filename`. You can use globs in the filename (the first match is used as the file to read) |
 | `{{$variable}}` | Value of environment variable `variable` |
 
 The following message fields support string interpolation:
@@ -181,7 +183,9 @@ The following fields of an attachment support string interpolation:
 - `text`
 - `footer`
 
-### Example
+### Examples
+
+#### Create a thread
 
 Consider a job with the `get: slack-in` step from the example above followed by this step:
 
@@ -194,3 +198,24 @@ Consider a job with the `get: slack-in` step from the example above followed by 
 This will reply to the message read by the `get` step (since `thread` is the timestamp of the original message), and the reply will read:
 
     Hi abc! I will do 123 right away!
+
+#### Send message and upload file
+
+Consider a job with the `get: something` step from the example above followed by this step:
+
+    - put: slack-out
+      params:
+        message:
+            text: "Hi {{slack-in/text_part1}}! I will do {{slack-in/text_part2}} right away!"
+        upload:
+          file: something/path/to/file
+          channels: C.......M
+
+This will create a message and post *something/path/to/file* to a thread.
+
+> Notice that in order for your message to be visible *channels* is mandatory.
+
+
+### Use helpers
+
+#### TBD

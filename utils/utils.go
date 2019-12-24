@@ -49,6 +49,8 @@ type InParams struct {
 type OutParams struct {
     Message *OutMessage `json:"message"`
     MessageFile string `json:"message_file"`
+    Ts string `json:"update_ts"`
+    Upload   *Upload `json:upload`
 }
 
 type OutRequest struct {
@@ -59,6 +61,16 @@ type OutRequest struct {
 type OutMessage struct {
     Text string `json:"text"`
     slack.PostMessageParameters
+}
+
+type Upload struct {
+    Content  string `json:content`
+    Channels string `json:channels`
+    File     string `json:file`
+    FileName string `json:filename`
+    FileType string `json:filetype`
+    ThreadTs string `json:thread_ts`
+    Title    string `json:title`
 }
 
 type OutResponse struct {
