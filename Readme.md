@@ -19,8 +19,8 @@ with the following benefits:
 
 Docker Store:
 
-- [jakobleben/slack-read-resource](https://store.docker.com/community/images/jakobleben/slack-read-resource)
-- [jakobleben/slack-post-resource](https://store.docker.com/community/images/jakobleben/slack-post-resource)
+- [apptweak/slack-read-resource](https://store.docker.com/community/images/apptweak/slack-read-resource)
+- [apptweak/slack-post-resource](https://store.docker.com/community/images/apptweak/slack-post-resource)
 
 ## Version Format
 
@@ -38,7 +38,7 @@ Usage in a pipeline:
         - name: slack-read-resource
           type: docker-image
           source:
-            repository: jakobleben/slack-read-resource
+            repository: apptweak/slack-read-resource
 
     resources:
         - name: slack-in
@@ -122,7 +122,7 @@ Usage in a pipeline:
         - name: slack-post-resource
           type: docker-image
           source:
-            repository: jakobleben/slack-post-resource
+            repository: apptweak/slack-post-resource
 
     resources:
         - name: slack-out
