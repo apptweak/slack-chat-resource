@@ -9,7 +9,7 @@ import (
     "fmt"
     //"strings"
     //"net/http"
-    "github.com/jleben/slack-chat-resource/utils"
+    "github.com/apptweak/slack-chat-resource/utils"
     "github.com/nlopes/slack"
 )
 
