@@ -85,9 +85,11 @@ type Channels struct {
     meta ChannelsMeta
 }
 
-func get_messages(request *utils.CheckRequest, slack_client *slack.Client) *slack.History {
+func get_messages(request *utils.CheckRequest, slack_client *slack.Client) *slack.GetConversationHistoryResponse {
 
-    params := slack.NewHistoryParameters()
+    params := slack.GetConversationHistoryParameters{
+        ChannelID: request.Source.ChannelId
+    }
 
     if request_version, ok := request.Version["timestamp"]; ok {
         params.Oldest = request_version
@@ -95,10 +97,10 @@ func get_messages(request *utils.CheckRequest, slack_client *slack.Client) *slac
     }
 
     params.Inclusive = true
-    params.Count = 100
+    params.Limit = 100
 
-    var history *slack.History
-    history, err := slack_client.GetConversationHistory(request.Source.ChannelId, params)
+    var history *slack.GetConversationHistoryResponse
+    history, err := slack_client.GetConversationHistory(&params)
     if err != nil {
         fatal("getting messages.", err)
     }
@@ -163,12 +165,12 @@ func match_replies(message *slack.Message, request *utils.CheckRequest, slack_cl
         return false
     }
 
-    conversation_replies = slack_client.GetConversationRepliesParameters{
+    params := slack_client.GetConversationRepliesParameters{
         ChannelID: request.Source.ChannelId,
         Timestamp: message.Msg.Timestamp,
     }
 
-    replies, _, _, err := slack_client.GetConversationReplies(conversation_replies)
+    replies, _, _, err := slack_client.GetConversationReplies(&params)
 
     if err != nil {
         fatal("getting replies", err)

@@ -57,14 +57,16 @@ func main() {
 
 func get(request *utils.InRequest, destination string, slack_client *slack.Client) utils.InResponse {
 
-    params := slack.NewHistoryParameters()
+    params := slack.GetConversationHistoryParameters{
+        ChannelID: request.Source.ChannelId
+    }
     params.Latest = request.Version["timestamp"]
     params.Inclusive = true
-    params.Count = 1
+    params.Limit = 1
 
-    history, history_err := slack_client.GetConversationHistory(request.Source.ChannelId, params)
-    if history_err != nil {
-		fatal("getting message", history_err)
+    history, err := slack_client.GetConversationHistory(&params)
+    if err != nil {
+		fatal("getting message", err)
 	}
 
 	if len(history.Messages) < 1 {
