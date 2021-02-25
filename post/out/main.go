@@ -7,7 +7,7 @@ import (
     "path/filepath"
     "fmt"
     "github.com/apptweak/slack-chat-resource/utils"
-    "github.com/nlopes/slack"
+    "github.com/slack-go/slack"
 )
 
 func main() {

@@ -8,7 +8,7 @@ import (
     "fmt"
     //"strings"
     "github.com/apptweak/slack-chat-resource/utils"
-    "github.com/nlopes/slack"
+    "github.com/slack-go/slack"
 )
 
 

@@ -5,7 +5,7 @@ import (
     "regexp"
     //"errors"
     "encoding/json"
-    "github.com/nlopes/slack"
+    "github.com/slack-go/slack"
 )
 
 type Regexp struct { regexp.Regexp }
