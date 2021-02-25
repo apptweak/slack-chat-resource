@@ -2,7 +2,7 @@
 all: read-resource post-resource
 
 read-resource:
-	docker build -t jakobleben/slack-read-resource -f read/Dockerfile .
+	docker build -t apptweak/slack-read-resource -f read/Dockerfile .
 
 post-resource:
-	docker build -t jakobleben/slack-post-resource -f post/Dockerfile .
+	docker build -t apptweak/slack-post-resource -f post/Dockerfile .

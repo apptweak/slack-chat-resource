@@ -6,8 +6,8 @@ import (
     "os"
     "path/filepath"
     "fmt"
-    "github.com/jleben/slack-chat-resource/utils"
-    "github.com/nlopes/slack"
+    "github.com/apptweak/slack-chat-resource/utils"
+    "github.com/slack-go/slack"
 )
 
 func main() {

@@ -7,8 +7,8 @@ import (
     "path/filepath"
     "fmt"
     //"strings"
-    "github.com/jleben/slack-chat-resource/utils"
-    "github.com/nlopes/slack"
+    "github.com/apptweak/slack-chat-resource/utils"
+    "github.com/slack-go/slack"
 )
 
 
@@ -62,7 +62,7 @@ func get(request *utils.InRequest, destination string, slack_client *slack.Clien
     params.Inclusive = true
     params.Count = 1
 
-    history, history_err := slack_client.GetChannelHistory(request.Source.ChannelId, params)
+    history, history_err := slack_client.GetConversationHistory(request.Source.ChannelId, params)
     if history_err != nil {
 		fatal("getting message", history_err)
 	}
