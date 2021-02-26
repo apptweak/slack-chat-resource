@@ -1,11 +1,7 @@
-
-FROM golang:alpine as build-env
-  RUN apk update
-  RUN apk add git
-  ENV CGO_ENABLED 0
-  ENV GO111MODULE on
+FROM golang:1.13.15-alpine as build-env
+  RUN apk update && \
+      apk add git
   RUN go get github.com/slack-go/slack
-  COPY . /src
   COPY ./utils /go/src/github.com/apptweak/slack-chat-resource/utils
   RUN go build -o /assets/utils github.com/apptweak/slack-chat-resource/utils
 
