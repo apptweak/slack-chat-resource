@@ -2,10 +2,10 @@ package main
 
 import (
     "encoding/json"
+    "fmt"
     "io/ioutil"
     "os"
     "path/filepath"
-    "fmt"
     "github.com/apptweak/slack-chat-resource/utils"
     "github.com/slack-go/slack"
 )
@@ -41,7 +41,7 @@ func main() {
 
     if len(request.Params.MessageFile) != 0 {
         message = new(utils.OutMessage)
-        read_message_file(filepath.Join(source_dir,request.Params.MessageFile), message)
+        read_message_file(filepath.Join(source_dir, request.Params.MessageFile), message)
     } else {
         message = request.Params.Message
         interpolate_message(message, source_dir)
@@ -63,7 +63,7 @@ func main() {
     }
 }
 
-func read_message_file(path string, message * utils.OutMessage) {
+func read_message_file(path string, message *utils.OutMessage) {
     file, open_err := os.Open(path)
     if open_err != nil {
         fatal("opening message file", open_err)
@@ -75,19 +75,19 @@ func read_message_file(path string, message * utils.OutMessage) {
     }
 }
 
-func interpolate_message(message * utils.OutMessage, source_dir string) {
+func interpolate_message(message *utils.OutMessage, source_dir string) {
     message.Text = interpolate(message.Text, source_dir)
     message.ThreadTimestamp = interpolate(message.ThreadTimestamp, source_dir)
 
-    for i := 0; i < len(message.Attachments); i++ {
-        attachment := &message.Attachments[i]
-        attachment.Fallback = interpolate(attachment.Fallback, source_dir)
-        attachment.Title = interpolate(attachment.Title, source_dir)
-        attachment.TitleLink = interpolate(attachment.TitleLink, source_dir)
-        attachment.Pretext = interpolate(attachment.Pretext, source_dir)
-        attachment.Text = interpolate(attachment.Text, source_dir)
-        attachment.Footer = interpolate(attachment.Footer, source_dir)
-    }
+    // for i := 0; i < len(message.Attachments); i++ {
+    //     attachment := &message.Attachments[i]
+    //     attachment.Fallback = interpolate(attachment.Fallback, source_dir)
+    //     attachment.Title = interpolate(attachment.Title, source_dir)
+    //     attachment.TitleLink = interpolate(attachment.TitleLink, source_dir)
+    //     attachment.Pretext = interpolate(attachment.Pretext, source_dir)
+    //     attachment.Text = interpolate(attachment.Text, source_dir)
+    //     attachment.Footer = interpolate(attachment.Footer, source_dir)
+    // }
 }
 
 func get_file_contents(path string) string {
@@ -148,7 +148,7 @@ func interpolate(text string, source_dir string) string {
 
 func send(message *utils.OutMessage, request *utils.OutRequest, slack_client *slack.Client) utils.OutResponse {
 
-    _, timestamp, err := slack_client.PostMessage(request.Source.ChannelId, message.Text, message.PostMessageParameters)
+    _, timestamp, err := slack_client.PostMessage(request.Source.ChannelId, slack.MsgOptionText(message.Text, false), slack.MsgOptionPostMessageParameters(message.PostMessageParameters))
 
     if err != nil {
         fatal("sending", err)

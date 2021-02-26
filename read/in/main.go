@@ -57,8 +57,8 @@ func main() {
 
 func get(request *utils.InRequest, destination string, slack_client *slack.Client) utils.InResponse {
 
-    params := slack.GetConversationHistoryParameters{
-        ChannelID: request.Source.ChannelId
+    params := slack.GetConversationHistoryParameters {
+        ChannelID: request.Source.ChannelId,
     }
     params.Latest = request.Version["timestamp"]
     params.Inclusive = true

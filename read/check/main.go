@@ -87,8 +87,8 @@ type Channels struct {
 
 func get_messages(request *utils.CheckRequest, slack_client *slack.Client) *slack.GetConversationHistoryResponse {
 
-    params := slack.GetConversationHistoryParameters{
-        ChannelID: request.Source.ChannelId
+    params := slack.GetConversationHistoryParameters {
+        ChannelID: request.Source.ChannelId,
     }
 
     if request_version, ok := request.Version["timestamp"]; ok {
@@ -165,7 +165,7 @@ func match_replies(message *slack.Message, request *utils.CheckRequest, slack_cl
         return false
     }
 
-    params := slack_client.GetConversationRepliesParameters{
+    params := slack.GetConversationRepliesParameters {
         ChannelID: request.Source.ChannelId,
         Timestamp: message.Msg.Timestamp,
     }
