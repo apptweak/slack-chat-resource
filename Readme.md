@@ -19,8 +19,8 @@ with the following benefits:
 
 Docker Store:
 
-- [apptweak/slack-read-resource](https://store.docker.com/community/images/apptweak/slack-read-resource)
-- [apptweak/slack-post-resource](https://store.docker.com/community/images/apptweak/slack-post-resource)
+- [apptweakci/slack-read-resource](https://store.docker.com/community/images/apptweakci/slack-read-resource)
+- [apptweakci/slack-post-resource](https://store.docker.com/community/images/apptweakci/slack-post-resource)
 
 ## Version Format
 
