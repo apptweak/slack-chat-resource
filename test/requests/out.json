@@ -1,0 +1,9 @@
+{
+    "source": {
+        "token": "5d49de7a-5ea3-918f-b441-f544cc212e39",
+        "channel_id": "CB91A15FE"
+    },
+    "params":{
+        "message_file": "test-message.json"
+    }
+}
