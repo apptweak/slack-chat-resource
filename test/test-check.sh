@@ -1,4 +1,7 @@
 #! /bin/bash
+
+set -x
+
 type=$1
 request=$2
 
